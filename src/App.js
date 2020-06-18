@@ -1,15 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
+import axios from "axios";
 
 function App() {
-  return (
-    <div className="App">
-      <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun <span role="img" aria-label='go!'>🚀</span>!
-      </p>
-    </div>
-  );
-}
+   const [data, setData] = useState();
+   
+       axios
+         .get("https://api.nasa.gov/planetary/apod?api_key=wcuqfoE4RfwZWGw3RRhT3pnRzQX0q8Mw90FcnKig")
+         .then( response => { 
+            console.log(response.data)
+            return setData(response.data)
+         })
+         .catch( e => console.log("ERROR = ", e));
+ 
+   return (
+     <div>
+        {data}
+     </div>
+   );
+ }
 
 export default App;
