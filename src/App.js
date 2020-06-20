@@ -31,7 +31,7 @@ function App() {
          .then( response => { 
 
             //THIS WORKS***************************************************
-            console.log('ASTEROID IN APP ',response.data.near_earth_objects[0]);
+            console.log('ASTEROID IN APP ',response.data.near_earth_objects[0]); // object at index 0 in neo in response
 
             //console.log( "TYPE = ", typeof(response.data.near_earth_objects) );
             setAsteroid( response.data.near_earth_objects )
@@ -47,7 +47,7 @@ function App() {
          .then( response => { 
 
             //THIS WORKS******************************
-            console.log('MARS IN APP ',response.data['550']);
+            console.log('MARS IN APP ',response.data['550']); //550 object from data object in response
 
 
             //console.log( "TYPE = ", typeof(response) );
