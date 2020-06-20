@@ -3,12 +3,21 @@ import "./main-content.css";
 
 function Main( {data} ){
 
-console.log('PROPS: ', data.date );
+//console.log('MAIN: ', data.date );
 
    return (
-      <div className="main-content">
-         <img className="main-image" src={data['url']}/>
-         <p></p>
+
+      <div className="wrapper-class-main">
+
+         <div className="main-content">
+            <div className="headline-container">
+               <img className="main-image" src={data['url']}/>
+               <p className="image-date">Today's Date: {data['date']}</p>
+               <p className="photographer">Credit: {data['copyright']}</p>
+               <p className="explanation">About: {data['explanation']}</p>
+            </div>
+         </div>
+
       </div>
    )
 }
