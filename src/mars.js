@@ -3,8 +3,10 @@ import "./main-content.css";
 
 function Mars( props ){
 
-//THIS DOESN'T WORK************************************** adding ['550'] for object key value
+//THIS WORKS******************************
 console.log( 'mars in component = ', props.marsJSON )
+//THIS DOESN'T WORK************ adding ['550'] for object key value
+//console.log( 'mars in component = ', props.marsJSON['550'] )
 
    return (
 

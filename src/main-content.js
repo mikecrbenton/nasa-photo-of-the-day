@@ -1,9 +1,10 @@
 import React from "react";
 import "./main-content.css";
 
-function Main( {data} ){
+function Main( props ){
 
 //console.log('MAIN: ', data.date );
+
 
    return (
 
@@ -11,10 +12,13 @@ function Main( {data} ){
 
          <div className="main-content">
             <div className="headline-container">
-               <img className="main-image" src={data['url']}/>
-               <p className="image-date">Today's Date: {data['date']}</p>
-               <p className="photographer">Credit: {data['copyright']}</p>
-               <p className="explanation">About: {data['explanation']}</p>
+               <img className="main-image" src={props.data['url']}/>
+               <p className="image-date">{props.data['title']}</p>
+               <p className="image-date">Today's Date: {props.data['date']}</p>
+               <p className="photographer">Credit: {props.data['copyright']}</p>
+               <p className="explanation">About: {props.data['explanation']}</p>
+               <input type="text" name="searchdate" placeholder="YYYY-MM-DD"/>
+               <button onClick={props.submit_apod}>Submit</button> 
             </div>
          </div>
 
