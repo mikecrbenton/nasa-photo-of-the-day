@@ -18,7 +18,7 @@ function Main( props ){
                <p className="photographer">Credit: {props.data['copyright']}</p>
                <p className="explanation">About: {props.data['explanation']}</p>
                <input type="text" name="searchdate" placeholder="YYYY-MM-DD"/>
-               <button onClick={props.submit_apod}>Submit</button> 
+               <button id="apod_search">Submit</button> 
             </div>
          </div>
 
