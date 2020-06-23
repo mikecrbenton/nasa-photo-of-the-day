@@ -1,13 +1,9 @@
-.wrapper-class-main{
-   display:flex;
-   justify-content: center;
-}
+
 
 .main-content {
    /* border: 1px solid red; */
-   display: flex;
-   justify-content: center;
    width: 50%;
+   display: flex;
 }
 
 .headline-container{

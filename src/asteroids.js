@@ -1,21 +1,19 @@
 import React from "react";
 import "./main-content.css";
+import "./asteroids.css";
 
-function Asteroids( props ){
+function Asteroids( { asteroidJSON } ){
 
-//THIS WORKS - JUST THE ARRAY
-console.log( 'asteroid in component = ', props.asteroidJSON.near_earth_objects ) 
-
-//THIS DOESN'T WORK******I can't access [0] for array index
-//console.log( 'asteroid in component = ', props.asteroidJSON[0] ) 
-
-   return (
-
-      <div className="wrapper-class-asteroids">
-         <div className="asteroid-content">
-         </div>
-      </div>
-   )
-}
+      return (
+            <div className="asteroid-content">
+               <h3>Near Earth Object</h3>
+               <p>Name: {asteroidJSON['name']}</p>
+               <p>Magnitude: {asteroidJSON['absolute_magnitude_h']}</p>
+               <a href={asteroidJSON['nasa_jpl_url']}>NASA JPL LinK</a> 
+               <button id="neo_search">Show Another NEO</button> 
+            </div>
+      
+      )
+   }
 
 export default Asteroids;

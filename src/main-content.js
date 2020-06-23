@@ -3,12 +3,7 @@ import "./main-content.css";
 
 function Main( props ){
 
-//console.log('MAIN: ', data.date );
-
-
    return (
-
-      <div className="wrapper-class-main">
 
          <div className="main-content">
             <div className="headline-container">
@@ -20,10 +15,8 @@ function Main( props ){
                <input type="text" name="searchdate" placeholder="YYYY-MM-DD"/>
                <button id="apod_search">Submit</button> 
             </div>
-         </div>
-
-      </div>
-   )
+         </div>  
+         )
 }
 
 export default Main;

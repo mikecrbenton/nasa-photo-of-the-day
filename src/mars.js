@@ -1,20 +1,22 @@
 import React from "react";
 import "./main-content.css";
+import "./mars.css";
 
-function Mars( props ){
-
-//THIS WORKS******************************
-console.log( 'mars in component = ', props.marsJSON )
-//THIS DOESN'T WORK************ adding ['550'] for object key value
-//console.log( 'mars in component = ', props.marsJSON['550'] )
+function Mars( {marsJSON, sol} ){
 
    return (
-
-      <div className="wrapper-class-mars">
+ 
          <div className="mars-content">
+            <h3>Mars Weather</h3>
+            <p>Current Sol: {sol}</p>
+            <p>MIN: { ((marsJSON.mn) * 9 / 5 + 32).toFixed(0) }</p>
+            <p>MAX: { ((marsJSON.mx) * 9 / 5 + 32).toFixed(0)}</p>
          </div>
-      </div>
+      
    )
 }
 
 export default Mars;
+
+
+
