@@ -6,7 +6,6 @@ import {
    Card, 
    CardImg, 
    CardBody, 
-   CardTitle, 
    CardSubtitle, 
    CardText,
    Container,
@@ -14,7 +13,36 @@ import {
    Col } from 'reactstrap';
 
 
-
+const MainHeader = styled.div`
+   font-weight: 900;
+   font-size: 2em;
+   margin-bottom: .3em;
+`;
+const TodaysDate = styled.p`
+   font-weight: 700;
+   font-size: 1.5em;
+   margin-bottom: .3em;
+`;
+const Credit = styled.p`
+   font-weight: 500;
+   font-size: 1.2em;
+   margin-bottom: .3em;
+`;
+const AboutTitle = styled.span`
+   font-weight: 500;
+   font-size: 1.2em;
+`;
+const TextBody = styled.p`
+   letter-spacing: .2px;
+   line-height: 1.8;
+   font-weight:300;
+   font-size: 1.2em;
+   margin-bottom: 1em;
+`;
+const DateInput = styled.input`
+   margin-right: 1em;
+   font-weight: 900;
+`;
 
 function Main( props ){
 
@@ -24,11 +52,12 @@ function Main( props ){
          <Card>
             <CardImg top width="100%" src={props.data['url']}  />
             <CardBody>
-               <CardTitle>{props.data['title']}</CardTitle>
-               <CardSubtitle>Today's Date: {props.data['date']}</CardSubtitle>
-               <CardSubtitle>Credit: {props.data['copyright']}</CardSubtitle>
-               <CardText>About: {props.data['explanation']}</CardText>
-               <input type="text" name="searchdate" placeholder="YYYY-MM-DD"/>
+               <MainHeader>{props.data['title']}</MainHeader>
+               <hr></hr>
+               <TodaysDate>Today's Date: {props.data['date']}</TodaysDate>
+               <Credit>Credit: {props.data['copyright']}</Credit>
+               <TextBody><AboutTitle>About: </AboutTitle>{props.data['explanation']}</TextBody>
+               <DateInput type="text" name="searchdate" placeholder="YYYY-MM-DD"/>
                <Button color="primary" id="apod_search">Submit</Button> 
             </CardBody>
          </Card>
