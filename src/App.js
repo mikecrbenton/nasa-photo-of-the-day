@@ -5,7 +5,8 @@ import Main from "./main-content";
 import axios from "axios";
 import Asteroids from "./asteroids";
 import Mars from "./mars";
-import neoData from "./neo.json";
+import { Container, Row, Col } from 'reactstrap';
+import styled from 'styled-components';
 
 
 function App() {
@@ -86,7 +87,11 @@ function App() {
    /* UseEffect makes an axios call and gets an array of 20 objects ( response.data.near_earth_objects )
       Due to an inability to access more than one layer deep in my objects ( an error I spent a few hours
       debugging and research) I store the initial data in state, and access the objects with an event
-      listener that increments the array index of the "neo" each time the button is pressed */
+      listener that increments the array index of the "neo" each time the button is pressed 
+      
+      SOLUTION: Data isn't always present when component is rendered - need a ternary or similar for loading data
+      NEEDED ->  { response.data.near_earth_objects[index] ? response.data.near_earth_objects[index] : "Loading..." 
+   */
 
    useEffect( () => {
      
@@ -101,6 +106,7 @@ function App() {
             axios
                .get("https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=wcuqfoE4RfwZWGw3RRhT3pnRzQX0q8Mw90FcnKig")
                .then( response => { 
+                  console.log("RESPONSE -  ",response)
                   setAsteroid( response.data.near_earth_objects[neoIndex] )
                   console.log( "NEO DATA -",response.data.near_earth_objects[neoIndex])
                })
@@ -141,11 +147,13 @@ function App() {
    return (
      <div className="global-container">
         <Header />
-        <div className="content-container">
+        <Container className="content-container">
+           <Row>
             <Asteroids asteroidJSON={asteroid} />
             <Main data={data} />
             <Mars marsJSON={mars} sol={sol} />
-        </div>
+           </Row>
+        </Container>
      </div>
    );
  }

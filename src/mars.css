@@ -1,4 +1,4 @@
-.mars-content{
+/*.mars-content{
    width: 25%;
 
    box-sizing: border-box;
@@ -6,11 +6,11 @@
    margin: 1em 0;
    box-shadow: 1px 1px 5px black;
 }
-
+*/
 a{
    display: block;
 }
-
-button{
+/*
+Button{
    margin-top: 1em;
-}
+} */

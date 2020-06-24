@@ -1,6 +1,7 @@
 .nasa-header{
    box-shadow: 1px 1px 5px black;
    padding: .8em 0;
+   margin-bottom: 2em;
 }
 h1{ 
    text-align: center;
