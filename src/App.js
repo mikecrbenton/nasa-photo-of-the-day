@@ -9,19 +9,26 @@ import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 
 
+// HELPER FUNCTION--
+// GET CURRENT DATE IN CORRECT FORMAT
+
+const getTodaysDate = () => {
+     //GET TODAYS DATE TO SET APOD PICTURE
+     let todaysDate = new Date();
+     let month = todaysDate.getMonth()+1;
+     //FORMAT MONTH TO 2 DIGIT FORMAT ( IF UNDER 10 )
+     if( month < '10' ){
+        month = '0' + month;
+     }
+     return `${todaysDate.getFullYear()}-${month}-${todaysDate.getDate()}`; 
+}
+
+
+
 function App() {
 
-   //SET INITIAL SEARCH STRING FOR APOD PICTURE-----------
-
-      //GET TODAYS DATE TO SET APOD PICTURE
-      let todaysDate = new Date();
-      let month = todaysDate.getMonth()+1;
-
-      //FORMAT MONTH TO 2 DIGIT FORMAT ( IF UNDER 10 )
-      if( month < '10' ){
-         month = '0' + month;
-      }
-      let currentDay = `${todaysDate.getFullYear()}-${month}-${todaysDate.getDate()}`; 
+   //SET INITIAL SEARCH STRING FOR APOD PICTURE
+   let currentDay = getTodaysDate(); 
 
    
    // THIS WAS ANOTHER WAY TO GET THE INITIAL APOD PICTURE - MAKING AN INITIAL CALL WITHOUT DATE PARAMS
@@ -36,7 +43,7 @@ function App() {
    //     },[]); 
 
 
-   //APOD STATE SETTINGS----------------------------------
+   //APOD STATE SETTINGS
    const [data, setData] = useState({});
    const [query, setQuery] = useState(currentDay);
 
@@ -48,12 +55,16 @@ function App() {
    const [mars, setMars] = useState({});
    const [sol, setSol] = useState()
 
+   //EXAMPLE TO TRY OUT STATE PASSING WITH LOADING
+   const [example, setExample] = useState({});
+
    
-   /*SEARCH NASA PICTURE WITH USER INPUT */
+   /* (1) SEARCH NASA PICTURE WITH USER INPUT=================================================================== */
+
    useEffect( () => {
 
-      //GET THE SEARCH STRING FROM USER INPUT ON THE EVENT LISTENER
-      let submit_apod= () => {
+      //GET THE SEARCH STRING FROM USER INPUT ON EVENT LISTENER
+      let userSearchForDate= () => {
 
          let userDate = document.getElementsByName("searchdate")[0].value;
          let regEx = /^\d{4}-\d{2}-\d{2}$/;
@@ -74,23 +85,24 @@ function App() {
       .catch( e => console.log("ERROR = ", e));
 
       // ADD CLICK TO THE SUBMIT BUTTON - GET USER INPUT
-      document.getElementById('apod_search').addEventListener("click", submit_apod);
+      document.getElementById('apod_search').addEventListener("click", userSearchForDate);
    
       // REMOVE THE EVENT LISTENER
       return () => {
-         document.getElementById('apod_search').removeEventListener("click", submit_apod);
+         document.getElementById('apod_search').removeEventListener("click", userSearchForDate);
       };
       }, [query]); 
 
 
-   // ASTEROID JSON - NEAR-EARTH OBJECTS
+   // (2) ASTEROID JSON - NEAR-EARTH OBJECTS======================================================================
+
    /* UseEffect makes an axios call and gets an array of 20 objects ( response.data.near_earth_objects )
       Due to an inability to access more than one layer deep in my objects ( an error I spent a few hours
       debugging and research) I store the initial data in state, and access the objects with an event
       listener that increments the array index of the "neo" each time the button is pressed 
       
       SOLUTION: Data isn't always present when component is rendered - need a ternary or similar for loading data
-      NEEDED ->  { response.data.near_earth_objects[index] ? response.data.near_earth_objects[index] : "Loading..." 
+      NEEDED ->  { response.data.near_earth_objects[index] ? response.data.near_earth_objects[index] : "Loading..." }
    */
 
    useEffect( () => {
@@ -120,9 +132,10 @@ function App() {
                   document.getElementById('neo_search').removeEventListener("click", submit_neo);
                }
             
-   },[neoIndex]); //USEEFFECT()
+   },[neoIndex]); 
 
-   // MARS WEATHER
+   // (3) MARS WEATHER====================================================================================================
+
    /* Due to inability to access props more than one level deep from props within my components, I got the initial data from the
       request - the min and max temp from the current day(sol).  To get the current sol, I accessed the last index in the 'sol_keys'
       array.  The API always returns an array of 7 sols, with the last index(6) being the current day */
@@ -131,9 +144,12 @@ function App() {
          .get("https://api.nasa.gov/insight_weather/?api_key=wcuqfoE4RfwZWGw3RRhT3pnRzQX0q8Mw90FcnKig&feedtype=json&ver=1.0")
          .then( response => { 
 
+            //SET EXAMPLE
+            setExample(response) ;
+            console.log( "MARS IN CONSOLE:", response.data)
             //API RETURNS AN ARRAY OF "SOL" DATES, THE LAST ONE BEING THE CURRENT DATE
             let currentSol = response.data['sol_keys'][6];
-
+            
             //SET THE TEMP DATA, AND THE CURRENT "SOL"
             setMars( response.data[currentSol]['AT'] );
             setSol( currentSol );
@@ -151,7 +167,7 @@ function App() {
            <Row>
             <Asteroids asteroidJSON={asteroid} />
             <Main data={data} />
-            <Mars marsJSON={mars} sol={sol} />
+            <Mars marsJSON={mars} sol={sol} example={example} />
            </Row>
         </Container>
      </div>

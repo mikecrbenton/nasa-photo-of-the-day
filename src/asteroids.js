@@ -1,17 +1,38 @@
 import React from "react";
-import "./main-content.css";
-import "./asteroids.css";
-import styled from 'styled-components';
-import { 
-   Button, 
-   Card, 
-   CardBody, 
-   CardTitle, 
-   CardText, 
-   CardLink,
-   Container,
-   Row,
-   Col } from 'reactstrap';
+import styled, { css } from 'styled-components';
+//EXAMPLE OF {IMPORT} OF STYLED-COMPONENT
+import {BoldSpan} from './mars';
+import { Button, Card, CardBody, Col } from 'reactstrap';
+
+
+
+//STYLES--------------------------
+//EXAMPLE OF PROPS USED***
+const AsteroidTitle = styled.p`
+   font-weight: 700;
+   font-size: 1.5em;
+   margin-bottom: .2em;
+`;
+const AsteroidText = styled.p`
+   font-weight: 500;
+   font-size: 1.2em;
+   margin-bottom: .3em;
+`;
+const AsteroidLink = styled.a`
+   font-weight: 700;
+   font-size: 1.2em;
+   margin-bottom: 1em;
+   display: block;
+
+   ${ props =>
+      props.anyValue === 'argumentName' && 
+      css`
+         text-align: center;
+      `}
+`;
+//STYLES--------------------------
+
+
 
 function Asteroids( { asteroidJSON } ){
 
@@ -20,11 +41,13 @@ function Asteroids( { asteroidJSON } ){
     <Col lg="3">
       <Card>
       <CardBody>
-         <CardTitle>Near Earth Object</CardTitle>
-         <CardText>Name: {asteroidJSON['name']}</CardText>
-         <CardText>Magnitude: {asteroidJSON['absolute_magnitude_h']}</CardText>
-         <CardLink href={asteroidJSON['nasa_jpl_url']}>NASA JPL LINK</CardLink>
-         <Button color="primary" id="neo_search">Show Another NEO</Button> 
+         <AsteroidTitle>Near Earth Object</AsteroidTitle>
+         <hr></hr>
+         <AsteroidText><BoldSpan>Name: </BoldSpan> {asteroidJSON['name']}</AsteroidText>
+         <AsteroidText><BoldSpan>Magnitude: </BoldSpan> {asteroidJSON['absolute_magnitude_h']}</AsteroidText>
+         <hr></hr>
+         <AsteroidLink anyValue="argumentName" href={asteroidJSON['nasa_jpl_url']}>NASA JPL LINK</AsteroidLink>
+         <Button outline color="primary" block id="neo_search">Show Another NEO</Button> 
       </CardBody>
       </Card>
     </Col>

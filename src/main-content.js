@@ -1,18 +1,9 @@
 import React from "react";
-import "./main-content.css";
 import styled from 'styled-components';
-import { 
-   Button, 
-   Card, 
-   CardImg, 
-   CardBody, 
-   CardSubtitle, 
-   CardText,
-   Container,
-   Row,
-   Col } from 'reactstrap';
+import { Button, Card, CardImg, CardBody, Container, Row, Col } from 'reactstrap';
 
 
+//STYLES--------------------------
 const MainHeader = styled.div`
    font-weight: 900;
    font-size: 2em;
@@ -39,10 +30,16 @@ const TextBody = styled.p`
    font-size: 1.2em;
    margin-bottom: 1em;
 `;
+const Instructions = styled.p`
+   font-weight: 600;
+   font-size: 1.2em;
+`;
 const DateInput = styled.input`
    margin-right: 1em;
    font-weight: 900;
 `;
+//STYLES--------------------------
+
 
 function Main( props ){
 
@@ -57,6 +54,8 @@ function Main( props ){
                <TodaysDate>Today's Date: {props.data['date']}</TodaysDate>
                <Credit>Credit: {props.data['copyright']}</Credit>
                <TextBody><AboutTitle>About: </AboutTitle>{props.data['explanation']}</TextBody>
+               <hr></hr>
+               <Instructions>Enter Date Format To Search For Past Pictures:</Instructions>
                <DateInput type="text" name="searchdate" placeholder="YYYY-MM-DD"/>
                <Button color="primary" id="apod_search">Submit</Button> 
             </CardBody>
