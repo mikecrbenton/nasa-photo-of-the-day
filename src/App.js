@@ -79,7 +79,6 @@ function App() {
       axios
       .get(`https://api.nasa.gov/planetary/apod?api_key=wcuqfoE4RfwZWGw3RRhT3pnRzQX0q8Mw90FcnKig&date=${query}`)
       .then( response => { 
-         console.log(' APOD RESPONSE ', response.data)
          setData(response.data)
       })
       .catch( e => console.log("ERROR = ", e));
@@ -118,9 +117,7 @@ function App() {
             axios
                .get("https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=wcuqfoE4RfwZWGw3RRhT3pnRzQX0q8Mw90FcnKig")
                .then( response => { 
-                  console.log("RESPONSE -  ",response)
                   setAsteroid( response.data.near_earth_objects[neoIndex] )
-                  console.log( "NEO DATA -",response.data.near_earth_objects[neoIndex])
                })
                .catch( e => console.log("ERROR = ", e));
        
@@ -144,15 +141,22 @@ function App() {
          .get("https://api.nasa.gov/insight_weather/?api_key=wcuqfoE4RfwZWGw3RRhT3pnRzQX0q8Mw90FcnKig&feedtype=json&ver=1.0")
          .then( response => { 
 
-            //SET EXAMPLE
-            setExample(response) ;
-            console.log( "MARS IN CONSOLE:", response.data)
-            //API RETURNS AN ARRAY OF "SOL" DATES, THE LAST ONE BEING THE CURRENT DATE
+            console.log( "=============================")
+            console.log( "THE RESPONSE OBJECT IN APP.JS:", response)
+
+
+            //API RETURNS AN ARRAY OF "SOL" DATES, THE 6th INDEX ALWAYS THE CURRENT DATE
             let currentSol = response.data['sol_keys'][6];
-            
-            //SET THE TEMP DATA, AND THE CURRENT "SOL"
-            setMars( response.data[currentSol]['AT'] );
+            //SET  'sol' TO PASS STATE TO MARS.JS
             setSol( currentSol );
+            //SET 'mars' TEMP DATA WITH CURRENT SOL AS A KEY
+            setMars( response.data[currentSol]['AT'] );
+
+
+            // ***************************************************************************
+            // VINCE - THIS IS WHERE I'M PASSING DOWN THE ENTIRE RESPONSE OBJECT AS PROPS
+            // TO MARS.JS ( IN CODE BELOW example={example })
+            setExample(response) ;
 
          })
          .catch( e => console.log("ERROR = ", e));
