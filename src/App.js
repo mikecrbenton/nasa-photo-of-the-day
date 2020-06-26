@@ -53,13 +53,9 @@ function App() {
 
    //MARS STATE SETTINGS
    const [mars, setMars] = useState({});
-   const [sol, setSol] = useState()
-
-   //EXAMPLE TO TRY OUT STATE PASSING WITH LOADING
-   const [example, setExample] = useState({});
-
    
-   /* (1) SEARCH NASA PICTURE WITH USER INPUT=================================================================== */
+   
+   // (1) SEARCH NASA PICTURE WITH USER INPUT=================================================================== 
 
    useEffect( () => {
 
@@ -133,36 +129,15 @@ function App() {
 
    // (3) MARS WEATHER====================================================================================================
 
-   /* Due to inability to access props more than one level deep from props within my components, I got the initial data from the
-      request - the min and max temp from the current day(sol).  To get the current sol, I accessed the last index in the 'sol_keys'
-      array.  The API always returns an array of 7 sols, with the last index(6) being the current day */
    useEffect( () => {
       axios
          .get("https://api.nasa.gov/insight_weather/?api_key=wcuqfoE4RfwZWGw3RRhT3pnRzQX0q8Mw90FcnKig&feedtype=json&ver=1.0")
          .then( response => { 
-
-            console.log( "=============================")
-            console.log( "THE RESPONSE OBJECT IN APP.JS:", response)
-
-
-            //API RETURNS AN ARRAY OF "SOL" DATES, THE 6th INDEX ALWAYS THE CURRENT DATE
-            let currentSol = response.data['sol_keys'][6];
-            //SET  'sol' TO PASS STATE TO MARS.JS
-            setSol( currentSol );
-            //SET 'mars' TEMP DATA WITH CURRENT SOL AS A KEY
-            setMars( response.data[currentSol]['AT'] );
-
-
-            // ***************************************************************************
-            // VINCE - THIS IS WHERE I'M PASSING DOWN THE ENTIRE RESPONSE OBJECT AS PROPS
-            // TO MARS.JS ( IN CODE BELOW example={example })
-            setExample(response) ;
-
+            setMars( response );
          })
          .catch( e => console.log("ERROR = ", e));
 
       },[]);
-
 
    return (
      <div className="global-container">
@@ -171,7 +146,7 @@ function App() {
            <Row>
             <Asteroids asteroidJSON={asteroid} />
             <Main data={data} />
-            <Mars marsJSON={mars} sol={sol} example={example} />
+            <Mars mars={mars} />
            </Row>
         </Container>
      </div>
